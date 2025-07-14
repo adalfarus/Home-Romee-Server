@@ -1,0 +1,148 @@
+<!-- in your stats.html, after including the <style> ... above ... -->
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<div class="stats-container">
+    <h1>Rommé Stats</h1>
+    <form method="get">
+        <label>
+            Player:
+            <select name="player" onchange="this.form.submit()">
+            {% for p in players %}
+                <option value="{{p}}" {% if p == player %}selected{% endif %}>{{p}}</option>
+            {% endfor %}
+            </select>
+        </label>
+    </form>
+
+    <h2>{{ player }}'s Rommé Stats</h2>
+    <table class="stats-table">
+        <tr><th>Games Played</th><td>{{ stats.games }}</td></tr>
+        <tr><th>Sessions</th><td>{{ stats.sessions }}</td></tr>
+        <tr><th>Absences</th><td>{{ stats.absences }}</td></tr>
+        <tr><th>Wins</th><td class="win">{{ stats.wins }}</td></tr>
+        <!--<tr><th>Win Rank</th><td class="global-rank">{{ stats.winrank }}</td></tr>!-->
+        <tr><th>Win Rate</th>
+            <td>
+                <span class="{% if stats.win_rate > 49 %}winrate-good{% else %}winrate-bad{% endif %}">
+                    {{ stats.win_rate }}%
+                </span>
+                <span class="global-rank">(Rank: {{ stats.winraterank }})</span>
+            </td>
+        </tr>
+        <tr><th>Average Points Left</th><td>{{ stats.avg_points_left }}</td></tr>
+        <tr><th>Max Points Left</th>
+            <td>
+                <span class="points">{{ stats.max_points }}</span>
+                <span class="global-rank">({{ stats.player_max_rank }} globally)</span>
+            </td>
+        </tr>
+        <tr><th>Most wins per Session</th><td class="best-session">{{ stats.best_session_wins }}</td></tr>
+        <tr><th>Least wins per Session</th><td class="worst-session">{{ stats.worst_session_wins }}</td></tr>
+        <tr>
+            <th>Average Wins per Session</th>
+            <td>{{ stats.avg_wins_per_session }}</td>
+        </tr>
+        <tr>
+            <th>Average Points Left per Session</th>
+            <td>{{ stats.avg_points_per_session }}</td>
+        </tr>
+        <tr><th>Longest Winstreak</th><td>{{ stats.longest_streak }}</td></tr>
+        <tr><th>Longest Winstreak (per session)</th><td>{{ stats.longest_streak_per_session }}</td></tr>
+        <tr>
+            <th>Total Points (absences=0)</th>
+            <td>{{ stats.total_points_absence_zero }}</td>
+        </tr>
+        <tr>
+            <th>Total Points (absences=avg)</th>
+            <td>{{ stats.total_points_absence_avg }}</td>
+        </tr>
+    </table>
+
+    <h3>Normalized Win Rate With Player</h3>
+    <table class="stats-table">
+      <tr><th>Player</th><th>Normalized Win Rate</th></tr>
+      {% for k, v in stats.normalized_win_chance_with.items() %}
+        <tr>
+          <td>{{ k }}</td>
+          <td>{{ v }}%</td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    <h3>Win Rate With Player Present (By Game Size)</h3>
+    <table class="stats-table">
+        <tr>
+            <th>Other Player</th>
+            <th>Players</th>
+            <th>Win Rate</th>
+            <th>Fair Rate</th>
+            <th>Diff</th>
+            <th>Games played</th>
+        </tr>
+        {% for row in stats.win_with_by_size %}
+        <tr>
+            <td>{{ row.player }}</td>
+            <td>{{ row.num_players }}</td>
+            <td>{{ row.rate }}%</td>
+            <td>{{ row.fair }}%</td>
+            <td>
+                <span class="{% if row.diff > 0 %}winrate-good{% elif row.diff < 0 %}winrate-bad{% endif %}">{{ row.diff }}%</span>
+            </td>
+            <td>{{ row.games }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Your Win Rate by Game Size (All Players)</h3>
+    <table class="stats-table">
+        <tr>
+            <th>Players in Game</th>
+            <th>Win Rate</th>
+            <th>Fair Rate</th>
+            <th>Diff</th>
+            <th>Games played</th>
+        </tr>
+        {% for row in stats.general_win_by_size %}
+        <tr>
+            <td>{{ row.num_players }}</td>
+            <td>{{ row.rate }}%</td>
+            <td>{{ row.fair }}%</td>
+            <td>
+                <span class="{% if row.diff > 0 %}winrate-good{% elif row.diff < 0 %}winrate-bad{% endif %}">{{ row.diff }}%</span>
+            </td>
+            <td>{{ row.games }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Player's Game List</h3>
+    <table class="stats-table">
+        <tr><th>Session</th><th>Result</th></tr>
+        {% for g in stats.game_list %}
+        <tr>
+            <td class="session-id">{{ g.session }}</td>
+            <td>
+                {% if g.val == 0 %}<span class="win">Win</span>
+                {% elif g.val == 1 %}<span class="absent">Absent</span>
+                {% else %}<span class="points">{{ g.val }} points left</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Global Max Points Left (Top 15)</h3>
+    <table class="stats-table">
+        <tr><th>Rank</th><th>Player</th><th>Points</th></tr>
+        {% for rank, name, pts in stats.global_max_points %}
+        <tr {% if name == player %}class="highlighted-player"{% endif %}>
+            <td>{{ rank }}</td>
+            <td>{{ name }}</td>
+            <td class="points">{{ pts }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Error {{ code }}: {{ name }}</h1>
+    <div style="color:#c23; margin: 2em 0; font-size: 1.2em;">{{ description }}</div>
+    {% if details %}
+        <details style="background:#fee;padding:1em;border-radius:.8em;max-width:600px;overflow:auto">
+            <summary>Show details</summary>
+            <pre style="font-size:.85em;">{{ details }}</pre>
+        </details>
+    {% endif %}
+    <a href="{{ url_for('home') }}" style="margin-top:2em;display:inline-block;font-size:1.1em;text-decoration:none;color:#09854b;">Back to Stats</a>
+{% endblock %}

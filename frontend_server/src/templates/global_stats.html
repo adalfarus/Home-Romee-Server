@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+    <a href="{{ url_for('home') }}" style="font-size:1em;padding:0.6em 1.2em;margin-bottom:0.6em;display:inline-block;color:#0b7b8d;text-decoration:none;background:#f2fffe;border-radius:0.7em;">← Home</a>
+    <h1>Global Rommé Stats</h1>
+    <h2>Games Played</h2>
+    <table class="stats-table">
+        <tr><th>Rank</th><th>Player</th><th>Games Played</th></tr>
+        {% for row in table_games %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row.player }}</td>
+            <td>{{ row.games }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Wins &amp; Win Rate</h2>
+    <table class="stats-table">
+        <tr><th>Rank</th><th>Player</th><th>Wins</th><th>Win Rate (%)</th></tr>
+        {% for row in table_wins %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row.player }}</td>
+            <td class="win">{{ row.wins }}</td>
+            <td>{{ row.win_rate }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Average &amp; Max Points Left</h2>
+    <table class="stats-table">
+        <tr><th>Rank</th><th>Player</th><th>Avg Points Left</th><th>Max Points Left</th></tr>
+        {% for row in table_avgpoints %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row.player }}</td>
+            <td>{{ row.avg_points_left }}</td>
+            <td class="points">{{ row.max_points }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Most/Least Wins per Session &amp; Avg Points per Session</h2>
+    <table class="stats-table">
+        <tr>
+            <th>Rank</th><th>Player</th>
+            <th>Most Wins/Session</th><th>Least Wins/Session</th>
+            <th>Avg Points/Session</th>
+        </tr>
+        {% for row in table_per_session %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row.player }}</td>
+            <td class="best-session">{{ row.best_session_wins }}</td>
+            <td class="worst-session">{{ row.worst_session_wins }}</td>
+            <td>{{ row.avg_points_per_session }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Total Points (Absences = 0)</h2>
+    <table class="stats-table">
+        <tr><th>Rank</th><th>Player</th><th>Total Points (abs=0)</th></tr>
+        {% for row in table_totalpoints0 %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row.player }}</td>
+            <td>{{ row.total_points_absence_zero }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Total Points (Absences = Avg)</h2>
+    <table class="stats-table">
+        <tr><th>Rank</th><th>Player</th><th>Total Points (abs=avg)</th></tr>
+        {% for row in table_totalpointsavg %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row.player }}</td>
+            <td>{{ row.total_points_absence_avg }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

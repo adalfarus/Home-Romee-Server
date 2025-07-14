@@ -1,0 +1,161 @@
+body {
+    background: linear-gradient(135deg, #68e381 0%, #02a3b9 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #24442b;
+}
+.stats-container {
+    background: rgba(255,255,255,0.98);
+    max-width: 1000px;
+    margin: 40px auto 32px auto;
+    border-radius: 1.6em;
+    box-shadow: 0 8px 48px #023e2111, 0 1.5px 8px #38aa6e44;
+    padding: 2.3em 2.1em 1.2em 2.1em;
+    position: relative;
+    overflow: hidden;
+}
+.stats-container::before {
+    content: "";
+    position: absolute;
+    top: -40px; left: -40px; right: -40px; height: 110px;
+    background: repeating-linear-gradient(130deg, #14be72 0 16px, transparent 16px 32px);
+    opacity: 0.09;
+    pointer-events: none;
+    border-radius: 2em 2em 40% 40%/3em 3em 2em 2em;
+}
+h1, h2, h3 {
+    text-align: center;
+    color: #09854b;
+    letter-spacing: 0.04em;
+    font-weight: 800;
+    margin-bottom: 0.7em;
+}
+h2 { color: #0b7b8d; font-size: 1.4em; margin-bottom: 0.3em; }
+h3 { color: #c1437a; font-size: 1.07em; margin-top: 1.8em; margin-bottom: 0.7em;}
+form { text-align:center; margin-bottom: 1em;}
+label { font-weight: 600; color: #0e7658;}
+select {
+    font-size: 1.08em;
+    padding: 0.21em 0.8em;
+    border-radius: .4em;
+    border: 1px solid #b2dfb1;
+    background: #e6fdeb;
+    margin-left: 0.3em;
+    font-weight: 500;
+    transition: border 0.2s;
+}
+select:focus { border-color: #35c47a; outline: none; background: #d2ffe4;}
+
+.stats-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    margin-top: 0.7em;
+    margin-bottom: 1.4em;
+    font-size: 1.08em;
+    word-break: break-word;
+    overflow-x: auto;
+}
+.stats-table th, .stats-table td {
+    padding: 0.48em 1em;
+    background: #f6fff9cc;
+    border-radius: .45em;
+    text-align: left;
+    box-shadow: 0 1px 3px #044f2215;
+    border-bottom: 1px solid #e0eae1;
+    white-space: nowrap;
+}
+.stats-table th {
+    color: #05b467;
+    background: linear-gradient(90deg, #e3fff6 85%, #ffeafc 120%);
+    font-weight: 700;
+    font-size: 1.08em;
+    border-bottom: 2px solid #79e4b2;
+    letter-spacing: .01em;
+}
+.stats-table tr:hover td {
+    background: #fffbf7cc;
+    color: #aa196b;
+}
+.stats-table td b { color: #21a31a; font-weight: 700; }
+.stats-table td {
+    color: #222;
+    font-weight: 500;
+}
+.stats-table td[title] { cursor: help; }
+
+.winrate-good { color: #12ae48; font-weight: bold; }
+.winrate-bad { color: #e13d3d; font-weight: bold; }
+.global-rank { color: #de9600; font-weight: 700; background: #fff9e1; border-radius: .3em; padding: 0.09em 0.4em; margin-left: .4em;}
+.absent { color: #8c8c8c; font-style: italic;}
+.win { color: #188c2f; font-weight: 700; }
+.lose { color: #aa1d1d; font-weight: 700; }
+.points { color: #5751b3; font-weight: 700;}
+.session-id { color: #c1437a; font-size: 1.04em;}
+.best-session { color: #097e61; font-weight: bold;}
+.worst-session { color: #e05a3a; font-weight: bold;}
+
+.highlighted-player,
+.highlighted-player td {
+    background: linear-gradient(90deg, #ffe5ef 70%, #ffd9d1 100%) !important;
+    font-weight: bold !important;
+    color: #aa1e56 !important;
+    border-bottom: 2px solid #ff8cc2 !important;
+    transition: background 0.15s, color 0.15s;
+}
+tr.highlighted-player:hover,
+tr.highlighted-player:hover td {
+    background: linear-gradient(90deg, #ffb3da 70%, #ffd2d1 100%) !important;
+    color: #e80062 !important;
+    transition: background 0.14s, color 0.14s;
+    box-shadow: 0 0 6px #f591e3cc;
+}
+
+@media (max-width: 700px) {
+    html, body {
+        font-size: 19px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .stats-container {
+        max-width: 100vw !important;
+        width: 100vw !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        padding: 0.2em 0.1em 0.8em 0.1em !important;
+        box-shadow: none !important;
+    }
+    h1, h2, h3, label, select,
+    .stats-table th, .stats-table td {
+        font-size: 1.16em !important;
+        line-height: 1.23em !important;
+    }
+    h1 { font-size: 1.46em !important; }
+    h2 { font-size: 1.2em !important; }
+    h3 { font-size: 1em !important; }
+    select {
+        width: 98vw !important;
+        min-width: 0 !important;
+        padding: 0.7em 1em !important;
+        font-size: 1.08em !important;
+    }
+    .stats-table {
+        width: 99vw !important;
+        margin: 0.2em 0 1.1em 0 !important;
+        font-size: 1.1em !important;
+        display: block;
+        overflow-x: auto;
+    }
+    .stats-table th, .stats-table td {
+        padding: .37em .3em !important;
+        font-size: 1em !important;
+        white-space: nowrap;
+    }
+    .session-id { font-size: 1.03em !important; }
+    a, button {
+        font-size: 1.1em !important;
+        padding: 1em 1.6em !important;
+    }
+}
