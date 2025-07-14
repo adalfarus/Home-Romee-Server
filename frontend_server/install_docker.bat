@@ -1,0 +1,6 @@
+@echo off
+echo Loading ...
+docker load -i home_server.tar
+echo Running ...
+docker run -d -p 80:80 --name home_server home_server
+pause

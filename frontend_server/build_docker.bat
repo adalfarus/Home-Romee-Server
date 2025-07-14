@@ -1,0 +1,6 @@
+@echo off
+echo Building ...
+docker build -t home_server .
+echo Saving ...
+docker save home_server -o home_server.tar
+pause
